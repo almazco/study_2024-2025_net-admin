@@ -1,118 +1,139 @@
 ---
-# Preamble
+## Front matter
+title: "Отчет по лабораторной работе №11 "
+subtitle: "Администрирование локальных сетей"
+author: "Зиязетдинов Алмаз, НПИбд-01-22"
 
-## Author
-author:
-  name: Дмитрий Сергеевич Кулябов
-  degrees: DSc
-  orcid: 0000-0002-0877-7063
-  email: kulyabov-ds@rudn.ru
-  affiliation:
-    - name: Российский университет дружбы народов
-      country: Российская Федерация
-      postal-code: 117198
-      city: Москва
-      address: ул. Миклухо-Маклая, д. 6
-## Title
-title: "Шаблон отчёта по лабораторной работе"
-subtitle: "Простейший вариант"
-license: "CC BY"
-## Generic options
+## Generic otions
 lang: ru-RU
-number-sections: true
-toc: true
 toc-title: "Содержание"
-toc-depth: 2
-## Crossref customization
-crossref:
-  lof-title: "Список иллюстраций"
-  lot-title: "Список таблиц"
-  lol-title: "Листинги"
+
 ## Bibliography
-bibliography:
-  - bib/cite.bib
-csl: _resources/csl/gost-r-7-0-5-2008-numeric.csl
-format:
+bibliography: bib/cite.bib
+csl: pandoc/csl/gost-r-7-0-5-2008-numeric.csl
+
 ## Pdf output format
-  pdf:
-    toc: true
-    number-sections: true
-    colorlinks: false
-    toc-depth: 2
-    lof: true # List of figures
-    lot: true # List of tables
-### Document
-    documentclass: scrreprt
-    papersize: a4
-    fontsize: 12pt
-    linestretch: 1.5
-### Language
-    babel-lang: russian
-    babel-otherlangs: english
-### Biblatex
-    cite-method: biblatex
-    biblio-style: gost-numeric
-    biblatexoptions:
-      - backend=biber
-      - langhook=extras
-      - autolang=other*
-### Misc options
-    csquotes: true
-    indent: true
-    header-includes: |
-      \usepackage{indentfirst}
-      \usepackage{float}
-      \floatplacement{figure}{H}
-      \usepackage[math,RM={Scale=0.94},SS={Scale=0.94},SScon={Scale=0.94},TT={Scale=MatchLowercase,FakeStretch=0.9},DefaultFeatures={Ligatures=Common}]{plex-otf}
-## Docx output format
-  docx:
-    toc: true
-    number-sections: true
-    toc-depth: 2
+toc: true # Table of contents
+toc-depth: 2
+lof: true # List of figures
+lot: false # List of tables
+fontsize: 12pt
+linestretch: 1.5
+papersize: a4
+documentclass: scrreprt
+## I18n polyglossia
+polyglossia-lang:
+  name: russian
+  options:
+	- spelling=modern
+	- babelshorthands=true
+polyglossia-otherlangs:
+  name: english
+## I18n babel
+babel-lang: russian
+babel-otherlangs: english
+## Fonts
+mainfont: IBM Plex Serif
+romanfont: IBM Plex Serif
+sansfont: IBM Plex Sans
+monofont: IBM Plex Mono
+mathfont: STIX Two Math
+mainfontoptions: Ligatures=Common,Ligatures=TeX,Scale=0.94
+romanfontoptions: Ligatures=Common,Ligatures=TeX,Scale=0.94
+sansfontoptions: Ligatures=Common,Ligatures=TeX,Scale=MatchLowercase,Scale=0.94
+monofontoptions: Scale=MatchLowercase,Scale=0.94,FakeStretch=0.9
+mathfontoptions:
+## Biblatex
+biblatex: true
+biblio-style: "gost-numeric"
+biblatexoptions:
+  - parentracker=true
+  - backend=biber
+  - hyperref=auto
+  - language=auto
+  - autolang=other*
+  - citestyle=gost-numeric
+## Pandoc-crossref LaTeX customization
+figureTitle: "Рис."
+tableTitle: "Таблица"
+listingTitle: "Листинг"
+lofTitle: "Список иллюстраций"
+lotTitle: "Список таблиц"
+lolTitle: "Листинги"
+## Misc options
+indent: true
+header-includes:
+  - \usepackage{indentfirst}
+  - \usepackage{float} # keep figures where there are in the text
+  - \floatplacement{figure}{H} # keep figures where there are in the text
 ---
 
 # Цель работы
 
-Здесь приводится формулировка цели лабораторной работы. Формулировки цели для каждой лабораторной работы приведены в методических указаниях.
+Провести подготовительные мероприятия по подключению локальной сети организации к Интернету.
 
-Цель данного шаблона --- максимально упростить подготовку отчётов по лабораторным работам.  Модифицируя данный шаблон, студенты смогут без труда подготовить отчёт по лабораторным работам, а также познакомиться с основными возможностями разметки Markdown.
+# Задачи
 
-# Задание
-
-Здесь приводится описание задания в соответствии с рекомендациями методического пособия и выданным вариантом.
-
-# Теоретическое введение
-
-Здесь описываются теоретические аспекты, связанные с выполнением работы.
-
-Например, в [табл. @tbl-std-dir] приведено краткое описание стандартных каталогов Unix.
-
-| Имя каталога | Описание каталога                                                                                                          |
-|--------------|----------------------------------------------------------------------------------------------------------------------------|
-| `/`          | Корневая директория, содержащая всю файловую                                                                               |
-| `/bin `      | Основные системные утилиты, необходимые как в однопользовательском режиме, так и при обычной работе всем пользователям     |
-| `/etc`       | Общесистемные конфигурационные файлы и файлы конфигурации установленных программ                                           |
-| `/home`      | Содержит домашние директории пользователей, которые, в свою очередь, содержат персональные настройки и данные пользователя |
-| `/media`     | Точки монтирования для сменных носителей                                                                                   |
-| `/root`      | Домашняя директория пользователя  `root`                                                                                   |
-| `/tmp`       | Временные файлы                                                                                                            |
-| `/usr`       | Вторичная иерархия для данных пользователя                                                                                 |
-
-: Описание некоторых каталогов файловой системы GNU Linux {#tbl-std-dir}
-
-Более подробно про Unix см. в [@tanenbaum_book_modern-os_ru; @robbins_book_bash_en; @zarrelli_book_mastering-bash_en; @newham_book_learning-bash_en].
+1. Построить схему подсоединения локальной сети к Интернету.
+2. Построить модельные сети провайдера и сети Интернет (рис. 11.2).
+3. Построить схемы сетей L1, L2, L3.
+4. При выполнении работы необходимо учитывать соглашение об именовании(см. раздел 2.5).
 
 # Выполнение лабораторной работы
 
-Описываются проведённые действия, в качестве иллюстрации даётся ссылка на иллюстрацию ([рис. @fig-001]).
+1. Схема подключения L1 (рис. [-@fig:001]).
 
-![V Сольвеевский конгресс (1927) «Электроны и фотоны»](image/solvay.jpg){#fig-001 width=70%}
+![Схема подключения L1](image/01.png){#fig:001 width=80%}
+
+2. Схема Vlan сети L2 (рис. [-@fig:002]).
+
+![Схема L2](image/02.png){#fig:002 width=80%}
+
+3. Схема маршрутизации сети L3 (рис. [-@fig:003]).
+
+![Схема маршрутизации сети L3](image/03.png){#fig:003 width=80%}
+
+Задание 1. Планирование сети с адресом 10.128.0.0/16 (рис. [-@fig:004]) (рис. [-@fig:005]) (рис. [-@fig:006]).
+
+![Таблица VLAN](image/04.png){#fig:004 width=80%}
+
+![Таблица IP](image/05.png){#fig:005 width=80%}
+
+![Таблица портов](image/06.png){#fig:006 width=80%}
+
+Построим сеть (рис. [-@fig:007]).
+
+![Строим сеть](image/07.png){#fig:007 width=80%}
+
+Физическое размещение (рис. [-@fig:008]).
+
+![Физическое размещение](image/08.png){#fig:008 width=80%}
+
+Настройка DNS (рис. [-@fig:009]).
+
+![Настройка DNS](image/09.png){#fig:009 width=80%}
+
+# Контрольные вопросы
+
+1 Что такое Network Address Translation (NAT)?
+это механизм в сетях TCP/IP, позволяющий преобразовывать IP-адреса транзитных пакетов
+
+2 Как определить, находится ли узел сети за NAT?
+С компьютера обратиться к сайту определения IP-адреса, например яндекс.интернометр, SPEEDTEST, 2ip. Если адрес, показанный сервисом, отличается от адреса интерфейса компьютера, то используется NAT.
+
+3 Какое оборудование отвечает за преобразование адреса методом NAT?
+Маршрутизатор
+
+4 В чём отличие статического, динамического и перегруженного NAT?
+Статический NAT — Отображение незарегистрированного IP-адреса на зарегистрированный IP-адрес на основании один к одному. Особенно полезно, когда устройство должно быть доступным снаружи сети. 
+Динамический NAT — Отображает незарегистрированный IP-адрес на зарегистрированный адрес из группы зарегистрированных IP-адресов. Динамический NAT также устанавливает непосредственное отображение между незарегистрированными и зарегистрированными адресами, но отображение может меняться в зависимости от зарегистрированного адреса, доступного в пуле адресов, во время коммуникации.
+Перегруженный NAT (NAPT, NAT Overload, PAT, маскарадинг) — форма динамического NAT, который отображает несколько незарегистрированных адресов в единственный зарегистрированный IP-адрес, используя различные порты. Известен также как PAT (Port Address Translation). При перегрузке каждый компьютер в частной сети транслируется в тот же самый адрес, но с различным номером порта.
+
+5 Охарактеризуйте типы NAT.
+Симметричный NAT (Symmetric NAT) — трансляция, при которой каждое соединение, инициируемое парой «внутренний адрес: внутренний порт» преобразуется в свободную уникальную случайно выбранную пару «публичный адрес: публичный порт». При этом инициация соединения из публичной сети невозможна. Cone NAT, Full Cone NAT — Однозначная (взаимная) трансляция между парами «внутренний адрес: внутренний порт» и «публичный адрес: публичный порт». Любой внешний хост может инициировать соединение с внутренним хостом (если это разрешено в правилах межсетевого экрана).
+Address-Restricted cone NAT, Restricted cone NAT — Постоянная трансляция между парой «внутренний адрес: внутренний порт» и «публичный адрес: публичный порт». Любое соединение, инициированное с внутреннего адреса, позволяет в дальнейшем получать ему пакеты с любого порта того публичного хоста, к которому он отправлял пакет(ы) ранее.
+Port-Restricted cone NAT — Трансляция между парой «внутренний адрес: внутренний порт» и «публичный адрес: публичный порт», при которой входящие пакеты проходят на внутренний хост только с одного порта публичного хоста — того, на который внутренний хост уже посылал пакет.
 
 # Выводы
 
-Здесь кратко описываются итоги проделанной работы.
-
-# Список литературы{.unnumbered}
-
-::: {#refs}
-:::
+Благодаря выполнению данной лабораторной работы, мы провели подготовительные мероприятия по подключению локальной сети организации к Интернету.

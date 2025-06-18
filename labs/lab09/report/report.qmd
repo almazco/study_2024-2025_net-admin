@@ -1,118 +1,150 @@
 ---
-# Preamble
+## Front matter
+title: "Отчет по лабораторной работе №9 "
+subtitle: "Администрирование локальных сетей"
+author: "Зиязетдинов Алмаз, НПИбд-01-22"
 
-## Author
-author:
-  name: Дмитрий Сергеевич Кулябов
-  degrees: DSc
-  orcid: 0000-0002-0877-7063
-  email: kulyabov-ds@rudn.ru
-  affiliation:
-    - name: Российский университет дружбы народов
-      country: Российская Федерация
-      postal-code: 117198
-      city: Москва
-      address: ул. Миклухо-Маклая, д. 6
-## Title
-title: "Шаблон отчёта по лабораторной работе"
-subtitle: "Простейший вариант"
-license: "CC BY"
-## Generic options
+## Generic otions
 lang: ru-RU
-number-sections: true
-toc: true
 toc-title: "Содержание"
-toc-depth: 2
-## Crossref customization
-crossref:
-  lof-title: "Список иллюстраций"
-  lot-title: "Список таблиц"
-  lol-title: "Листинги"
+
 ## Bibliography
-bibliography:
-  - bib/cite.bib
-csl: _resources/csl/gost-r-7-0-5-2008-numeric.csl
-format:
+bibliography: bib/cite.bib
+csl: pandoc/csl/gost-r-7-0-5-2008-numeric.csl
+
 ## Pdf output format
-  pdf:
-    toc: true
-    number-sections: true
-    colorlinks: false
-    toc-depth: 2
-    lof: true # List of figures
-    lot: true # List of tables
-### Document
-    documentclass: scrreprt
-    papersize: a4
-    fontsize: 12pt
-    linestretch: 1.5
-### Language
-    babel-lang: russian
-    babel-otherlangs: english
-### Biblatex
-    cite-method: biblatex
-    biblio-style: gost-numeric
-    biblatexoptions:
-      - backend=biber
-      - langhook=extras
-      - autolang=other*
-### Misc options
-    csquotes: true
-    indent: true
-    header-includes: |
-      \usepackage{indentfirst}
-      \usepackage{float}
-      \floatplacement{figure}{H}
-      \usepackage[math,RM={Scale=0.94},SS={Scale=0.94},SScon={Scale=0.94},TT={Scale=MatchLowercase,FakeStretch=0.9},DefaultFeatures={Ligatures=Common}]{plex-otf}
-## Docx output format
-  docx:
-    toc: true
-    number-sections: true
-    toc-depth: 2
+toc: true # Table of contents
+toc-depth: 2
+lof: true # List of figures
+lot: false # List of tables
+fontsize: 12pt
+linestretch: 1.5
+papersize: a4
+documentclass: scrreprt
+## I18n polyglossia
+polyglossia-lang:
+  name: russian
+  options:
+	- spelling=modern
+	- babelshorthands=true
+polyglossia-otherlangs:
+  name: english
+## I18n babel
+babel-lang: russian
+babel-otherlangs: english
+## Fonts
+mainfont: IBM Plex Serif
+romanfont: IBM Plex Serif
+sansfont: IBM Plex Sans
+monofont: IBM Plex Mono
+mathfont: STIX Two Math
+mainfontoptions: Ligatures=Common,Ligatures=TeX,Scale=0.94
+romanfontoptions: Ligatures=Common,Ligatures=TeX,Scale=0.94
+sansfontoptions: Ligatures=Common,Ligatures=TeX,Scale=MatchLowercase,Scale=0.94
+monofontoptions: Scale=MatchLowercase,Scale=0.94,FakeStretch=0.9
+mathfontoptions:
+## Biblatex
+biblatex: true
+biblio-style: "gost-numeric"
+biblatexoptions:
+  - parentracker=true
+  - backend=biber
+  - hyperref=auto
+  - language=auto
+  - autolang=other*
+  - citestyle=gost-numeric
+## Pandoc-crossref LaTeX customization
+figureTitle: "Рис."
+tableTitle: "Таблица"
+listingTitle: "Листинг"
+lofTitle: "Список иллюстраций"
+lotTitle: "Список таблиц"
+lolTitle: "Листинги"
+## Misc options
+indent: true
+header-includes:
+  - \usepackage{indentfirst}
+  - \usepackage{float} # keep figures where there are in the text
+  - \floatplacement{figure}{H} # keep figures where there are in the text
 ---
 
 # Цель работы
 
-Здесь приводится формулировка цели лабораторной работы. Формулировки цели для каждой лабораторной работы приведены в методических указаниях.
-
-Цель данного шаблона --- максимально упростить подготовку отчётов по лабораторным работам.  Модифицируя данный шаблон, студенты смогут без труда подготовить отчёт по лабораторным работам, а также познакомиться с основными возможностями разметки Markdown.
+Изучение возможностей протокола STP и его модификаций по обеспечению отказоустойчивости сети, агрегированию интерфейсов и перераспределению нагрузки между ними.
 
 # Задание
 
-Здесь приводится описание задания в соответствии с рекомендациями методического пособия и выданным вариантом.
-
-# Теоретическое введение
-
-Здесь описываются теоретические аспекты, связанные с выполнением работы.
-
-Например, в [табл. @tbl-std-dir] приведено краткое описание стандартных каталогов Unix.
-
-| Имя каталога | Описание каталога                                                                                                          |
-|--------------|----------------------------------------------------------------------------------------------------------------------------|
-| `/`          | Корневая директория, содержащая всю файловую                                                                               |
-| `/bin `      | Основные системные утилиты, необходимые как в однопользовательском режиме, так и при обычной работе всем пользователям     |
-| `/etc`       | Общесистемные конфигурационные файлы и файлы конфигурации установленных программ                                           |
-| `/home`      | Содержит домашние директории пользователей, которые, в свою очередь, содержат персональные настройки и данные пользователя |
-| `/media`     | Точки монтирования для сменных носителей                                                                                   |
-| `/root`      | Домашняя директория пользователя  `root`                                                                                   |
-| `/tmp`       | Временные файлы                                                                                                            |
-| `/usr`       | Вторичная иерархия для данных пользователя                                                                                 |
-
-: Описание некоторых каталогов файловой системы GNU Linux {#tbl-std-dir}
-
-Более подробно про Unix см. в [@tanenbaum_book_modern-os_ru; @robbins_book_bash_en; @zarrelli_book_mastering-bash_en; @newham_book_learning-bash_en].
+1. Сформируйте резервное соединение между коммутаторами msk-donskayasw-1 и msk-donskaya-sw-3.
+2. Настройте балансировку нагрузки между резервными соединениями.
+3. Настройте режим Portfast на тех интерфейсах коммутаторов, к которым подключены серверы.
+4. Изучите отказоустойчивость резервного соединения.
+5. Сформируйте и настройте агрегированное соединение интерфейсов Fa0/20 – Fa0/23 между коммутаторами msk-donskaya-sw-1 и msk-donskaya-sw-4.
+6. При выполнении работы необходимо учитывать соглашение об именовании (см. раздел 2.5).
 
 # Выполнение лабораторной работы
 
-Описываются проведённые действия, в качестве иллюстрации даётся ссылка на иллюстрацию ([рис. @fig-001]).
+1. Сформируйте резервное соединение между коммутаторами msk-donskayasw-1 и msk-donskaya-sw-3 (рис. 9.1). Для этого:
+  – замените соединение между коммутаторами msk-donskaya-sw-1 (Gig0/2) и msk-donskaya-sw-4 (Gig0/1) на соединение между коммутаторами msk-donskaya-sw-1 (Gig0/2) и msk-donskaya-sw-3 (Gig0/2);
+  – сделайте порт на интерфейсе Gig0/2 коммутатора msk-donskaya-sw-3 транковым:
+  – соединение между коммутаторами msk-donskaya-sw-1 и mskdonskaya-sw-4 сделайте через интерфейсы Fa0/23, не забыв активировать их в транковом режиме. (рис. [-@fig:001]).
 
-![V Сольвеевский конгресс (1927) «Электроны и фотоны»](image/solvay.jpg){#fig-001 width=70%}
+![Замена соединений](image/01.png){#fig:001 width=80%}
+
+2. С оконечного устройства dk-donskaya-1 пропингуйте серверы mail и web.
+В режиме симуляции проследите движение пакетов ICMP. Убедитесь, что движение пакетов происходит через коммутатор msk-donskaya-sw-2. (рис. [-@fig:002]).
+
+![Режим симуляции](image/02.png){#fig:002 width=80%}
+
+3. На коммутаторе msk-donskaya-sw-2 посмотрите состояние протокола STP для vlan 3: (рис. [-@fig:003]).
+
+![Смотрим состояние протокола STP](image/03.png){#fig:003 width=80%}
+
+4. В качестве корневого коммутатора STP настройте коммутатор msk-donskaya-sw-1. (рис. [-@fig:004]).
+
+![Настройка корневого коммутатора](image/04.png){#fig:004 width=80%}
+
+5. Используя режим симуляции, убедитесь, что пакеты ICMP пойдут от хоста dk-donskaya-1 до mail через коммутаторы msk-donskaya-sw-1 и msk-donskaya- sw-3, а от хоста dk-donskaya-1 до web через коммутаторы msk-donskaya-sw-1 и msk-donskaya-sw-2. (рис. [-@fig:005]).
+
+![Режим симуляции](image/05.png){#fig:005 width=80%}
+
+6. Настройте режим Portfast на тех интерфейсах коммутаторов, к которым подключены серверы: (рис. [-@fig:006]).
+
+(image/06.png){#fig:006 width=80%}
+
+7. Изучите отказоустойчивость протокола STP и время восстановления соединения при переключении на резервное соединение. Для этого используйте команду ping -n 1000 mail.donskaya.rudn.ru на хосте dkdonskaya- 1, а разрыв соединения обеспечьте переводом соответствующего интерфейса коммутатора в состояние shutdown. (рис. [-@fig:007]).
+
+(image/07.png){#fig:007 width=80%}
+
+8. Переключите коммутаторы режим работы по протоколу Rapid PVST+: (рис. [-@fig:008]).
+
+(image/08.png){#fig:008 width=80%}
+
+
+
+# Контрольные вопросы
+
+1. Какую информацию можно получить, воспользовавшись командой определения состояния протокола STP для VLAN (на корневом и не на корневом устройстве)? Приведите примеры вывода подобной информации на устройствах –  
+VLAN… // Номер VLAN
+STP … // Тип протокола
+Root ID/Bridge ID // Ближайший коммутатор/Текущий
+коммутатор
+Priority … // Приоритет
+Address … // MAC-адрес
+Cost … // «Затраты» до этого коммутатора
+Port … // Порт
+Hello Time … Max Age … Forward Delay … Aging Time … // Время
+работы STP // Свойства портов
+2. При помощи какой команды можно узнать, в каком режиме, STP или Rapid PVST+, работает устройство? Приведите примеры вывода подобной информации на устройствах - 
+sh ru
+3. Для чего и в каких случаях нужно настраивать режим Portfast? 
+- Он позволяет сразу включать выделенные порты, поскольку они не подключены к коммутаторам и не участвуют во включении STP.
+4. В чем состоит принцип работы агрегированного интерфейса? Для чего он используется? 
+- Он объединяет параллельные каналы для увеличения пропускной способности, а также не теряет соединение при обрыве одного из каналов, перенаправляя трафик.
+5. В чём принципиальные отличия при использовании протоколов LACP (Link Aggregation Control Protocol), PAgP (Port Aggregation Protocol) и статического агрегирования без использования протоколов? 
+- LACP общий стандарт IEEE, PAgP — локальный протокол Cisco. Для них обязательна настройка сторон (активная, пассивная, авто). При статическом агрегировании коммутатор обрабатывает данные как с магистрали, даже если она не настроена на другой стороне.
+6. При помощи каких команд можно узнать состояние агрегированного канала EtherChannel? 
+- show etherchannel
 
 # Выводы
 
-Здесь кратко описываются итоги проделанной работы.
-
-# Список литературы{.unnumbered}
-
-::: {#refs}
-:::
+Изучили работу протокола STP и агрегирование подключения.

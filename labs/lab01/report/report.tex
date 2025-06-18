@@ -1,0 +1,368 @@
+% Options for packages loaded elsewhere
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+  english,
+  russian,
+  12pt,
+  a4paper,
+  DIV=11,
+  numbers=noendperiod]{scrreprt}
+\usepackage{xcolor}
+\usepackage{amsmath,amssymb}
+\setcounter{secnumdepth}{5}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\usepackage{setspace}
+% Make \paragraph and \subparagraph free-standing
+\makeatletter
+\ifx\paragraph\undefined\else
+  \let\oldparagraph\paragraph
+  \renewcommand{\paragraph}{
+    \@ifstar
+      \xxxParagraphStar
+      \xxxParagraphNoStar
+  }
+  \newcommand{\xxxParagraphStar}[1]{\oldparagraph*{#1}\mbox{}}
+  \newcommand{\xxxParagraphNoStar}[1]{\oldparagraph{#1}\mbox{}}
+\fi
+\ifx\subparagraph\undefined\else
+  \let\oldsubparagraph\subparagraph
+  \renewcommand{\subparagraph}{
+    \@ifstar
+      \xxxSubParagraphStar
+      \xxxSubParagraphNoStar
+  }
+  \newcommand{\xxxSubParagraphStar}[1]{\oldsubparagraph*{#1}\mbox{}}
+  \newcommand{\xxxSubParagraphNoStar}[1]{\oldsubparagraph{#1}\mbox{}}
+\fi
+\makeatother
+
+
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
+% Set default figure placement to htbp
+\def\fps@figure{htbp}
+\makeatother
+
+
+
+\ifLuaTeX
+\usepackage[bidi=basic,provide=*]{babel}
+\else
+\usepackage[bidi=default,provide=*]{babel}
+\fi
+% get rid of language-specific shorthands (see #6817):
+\let\LanguageShortHands\languageshorthands
+\def\languageshorthands#1{}
+
+
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+
+
+
+ 
+\usepackage[style=gost-numeric,backend=biber,langhook=extras,autolang=other*]{biblatex}
+\addbibresource{bib/cite.bib}
+
+\usepackage[]{csquotes}
+
+\KOMAoption{captions}{tableheading}
+\usepackage{indentfirst}
+\usepackage{float}
+\floatplacement{figure}{H}
+\usepackage[math,RM={Scale=0.94},SS={Scale=0.94},SScon={Scale=0.94},TT={Scale=MatchLowercase,FakeStretch=0.9},DefaultFeatures={Ligatures=Common}]{plex-otf}
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\AtBeginDocument{%
+\ifdefined\contentsname
+  \renewcommand*\contentsname{Содержание}
+\else
+  \newcommand\contentsname{Содержание}
+\fi
+\ifdefined\listfigurename
+  \renewcommand*\listfigurename{Список иллюстраций}
+\else
+  \newcommand\listfigurename{Список иллюстраций}
+\fi
+\ifdefined\listtablename
+  \renewcommand*\listtablename{Список таблиц}
+\else
+  \newcommand\listtablename{Список таблиц}
+\fi
+\ifdefined\figurename
+  \renewcommand*\figurename{Рисунок}
+\else
+  \newcommand\figurename{Рисунок}
+\fi
+\ifdefined\tablename
+  \renewcommand*\tablename{Таблица}
+\else
+  \newcommand\tablename{Таблица}
+\fi
+}
+\@ifpackageloaded{float}{}{\usepackage{float}}
+\floatstyle{ruled}
+\@ifundefined{c@chapter}{\newfloat{codelisting}{h}{lop}}{\newfloat{codelisting}{h}{lop}[chapter]}
+\floatname{codelisting}{Список}
+\newcommand*\listoflistings{\listof{codelisting}{Листинги}}
+\makeatother
+\makeatletter
+\makeatother
+\makeatletter
+\@ifpackageloaded{caption}{}{\usepackage{caption}}
+\@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
+\makeatother
+\usepackage{bookmark}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={Отчёт по лабораторной работе №1},
+  pdfauthor={Зиязетдинов Алмаз Радикович},
+  pdflang={ru-RU},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+
+
+\title{Отчёт по лабораторной работе №1}
+\author{Зиязетдинов Алмаз Радикович}
+\date{}
+\begin{document}
+\maketitle
+
+\renewcommand*\contentsname{Содержание}
+{
+\setcounter{tocdepth}{1}
+\tableofcontents
+}
+\listoffigures
+\listoftables
+
+\setstretch{1.5}
+\chapter{Цель
+работы}\label{ux446ux435ux43bux44c-ux440ux430ux431ux43eux442ux44b}
+
+Установка инструмента моделирования конфигурации сети Cisco Packet
+Tracer {[}3{]}, знакомство с его интерфейсом.
+
+\chapter{Задание}\label{ux437ux430ux434ux430ux43dux438ux435}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Установить на домашнем устройстве Cisco Packet Tracer.
+\item
+  Постройте простейшую сеть в Cisco Packet Tracer, проведите простейшую
+  настройку оборудования.
+\end{enumerate}
+
+\chapter{Последовательность выполнения
+работы}\label{ux43fux43eux441ux43bux435ux434ux43eux432ux430ux442ux435ux43bux44cux43dux43eux441ux442ux44c-ux432ux44bux43fux43eux43bux43dux435ux43dux438ux44f-ux440ux430ux431ux43eux442ux44b}
+
+\begin{verbatim}
+1. Установите в вашей операционной системе Cisco Packet Tracer     ([рис.1 @fig-001]).                                                                 |
+\end{verbatim}
+
+Построение простейшей сети 1. Создайте новый проект (например,
+lab\_PT-01.pkt). 2. В рабочем пространстве разместите концентратор
+(Hub-PT) и четыре оконечных устройства PC. Соедините оконечные
+устройства с концентратором прямым кабелем Щёлкнув последовательно на
+каждом оконечном устройстве, задайте статические IP-адреса 192.168.1.11,
+192.168.1.12, 192.168.1.13, 192.168.1.14 с маской подсети 255.255.255.0
+
+Модель простой сети с концентратором (\textbf{?@fig-001}). \textbar{}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\tightlist
+\item
+  В основном окне проекта перейдите из режима реального времени
+  (Realtime) в режим моделирования (Simulation). Выберите на панели
+  инструментов мышкой «Add Simple PDU (P)» и щёлкните сначала на PC0,
+  затем на PC2. В рабочей области должны будут появится два конверта,
+  обозначающих пакеты, в списке событий на панели моделирования должны
+  будут появиться два события, относящихся к пакетам ARP и ICMP
+  соответственно (рис. 1.5). На панели моделирования нажмите кнопку
+  «Play» и проследите за движением пакетов ARP и ICMP от устройства PC0
+  до устройства PC2 и обратно.
+\end{enumerate}
+
+Простейшая модель сети (\textbf{?@fig-004}).\\
+4. Щёлкнув на строке события, откройте окно информации о PDU и изучите,
+что происходит на уровне модели OSI при перемещении пакета (рис. 1.6).
+Используя кнопку «Проверь себя» (Challenge Me) на вкладке OSI Model,
+ответьте на вопросы. 5. Откройте вкладку с информацией о PDU (рис. 1.7).
+Исследуйте структуру пакета ICMP. Опишите структуру кадра Ethernet.
+Какие изменения происходят в кадре Ethernet при передвижении пакета?
+Какой тип имеет кадр Ethernet? Опишите структуру MAC-адресов. 6.
+Очистите список событий, удалив сценарий моделирования. Выберите на
+панели инструментов мышкой «Add Simple PDU (P)» и щёлкните сначала на
+PC0, затем на PC2. Снова выберите на панели инструментов мышкой «Add
+Simple PDU (P)» и щёлкните сначала на PC2, затем на PC0. На панели
+моделирования нажмите кнопку «Play» и проследите за возникновением
+коллизии (рис. 1.8). В списке событий посмотрите информацию о PDU. В
+отчёте поясните, как отображается в заголовках пакетов информация о
+коллизии и почему возникла коллизия.
+
+События в режиме моделирования Packet Tracer(\textbf{?@fig-003}).
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{6}
+\tightlist
+\item
+  Перейдите в режим реального времени (Realtime). В рабочем пространстве
+  разместите коммутатор (например Cisco 2950-24) и 4 оконечных
+  устройства PC. Соедините оконечные устройства с коммутатором прямым
+  кабелем. Щёлкнув последовательно на каждом оконечном устройстве,
+  задайте статические IP-адреса 192.168.1.21, 192.168.1.22,
+  192.168.1.23, 192.168.1.24 с маской подсети 255.255.255.0.
+\item
+  В основном окне проекта перейдите из режима реального времени
+  (Realtime) в режим моделирования (Simulation). Выберите на панели
+  инструментов мышкой «Add Simple PDU (P)» и щёлкните сначала на PC4,
+  затем на PC6. В рабочей области должны будут появится два конверта,
+  обозначающих пакеты, в списке событий на панели моделирования должны
+  будут появиться два события, относящихся к пакетам ARP и ICMP
+  соответственно
+\end{enumerate}
+
+События в режиме моделирования Packet Tracer (\textbf{?@fig-005}). (рис.
+1.9). На панели моделирования нажмите кнопку «Play» и проследите за
+движением пакетов ARP и ICMP от устройства PC4 до устройства PC6 и
+обратно. В отчёте поясните, есть ли различия и в чём они заключаются в
+событиях протокола ARP в сценарии с концентратором.
+
+Модель простой сети с коммутатором(\textbf{?@fig-006}).
+
+\begin{verbatim}
+                                                    |
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{8}
+\item
+  Исследуйте структуру пакета ICMP. Опишите структуру кадра Ethernet.
+  Какие изменения происходят в кадре Ethernet при передвижении пакета?
+  Какой тип имеет кадр Ethernet? Опишите структуру MAC-адресов.
+\item
+  Очистите список событий, удалив сценарий моделирования. Выберите на
+  панели инструментов мышкой «Add Simple PDU (P)» и щёлкните сначала на
+  PC4, затем на PC6. Снова выберите на панели инструментов мышкой «Add
+  Simple PDU (P)» и щёлкните сначала на PC6, затем на PC4. На панели
+  моделирования нажмите кнопку «Play» и проследите за движением пакетов.
+  В отчёте поясните, почему не возникает коллизия.
+\item
+  Перейдите в режим реального времени (Realtime). В рабочем пространстве
+  соедините кроссовым кабелем концентратор и коммутатор. Перейдите в
+  режим моделирования (Simulation). Очистите список событий, удалив
+  сценарий моделирования. Выберите на панели инструментов мышкой «Add
+  Simple PDU (P)» и щёлкните сначала на PC0, затем на PC4. Снова
+  выберите на панели инструментов мышкой «Add Simple PDU (P)» и щёлкните
+  сначала на PC4, затем на PC0. На панели моделирования нажмите кнопку
+  «Play» и проследите за движением пакетов. В отчёте поясните, почему
+  сначала возникает коллизия (рис. 1.10), а затем пакеты успешно
+  достигают пункта назначения.
+\item
+  Очистите список событий, удалив сценарий моделирования. На панели
+  моделирования нажмите «Play» и в списке событий получите пакеты STP
+  (рис. 1.11). Исследуйте структуру STP. Опишите структуру кадра
+  Ethernet в этих пакетах. Какой тип имеет кадр Ethernet? Опишите
+  структуру MACадресов.
+\item
+  Перейдите в режим реального времени (Realtime). В рабочем пространстве
+  добавьте маршрутизатор (например, Cisco 2811). Соедините прямым
+  кабелем коммутатор и маршрутизатор (рис. 1.12). Щёлкните на
+  маршрутизаторе и на вкладке его конфигурации пропишите статический
+  IP-адрес 192.168.1.254 с маской 255.255.255.0, активируйте порт,
+  поставив галочку «On» напротив «Port Status» (рис. 1.13).
+\item
+  Перейдите в режим моделирования (Simulation). Очистите список событий,
+  удалив сценарий моделирования. Выберите на панели инструментов мышкой
+  «Add Simple PDU (P)» и щёлкните сначала на PC3, затем на
+  маршрутизаторе. На панели моделирования нажмите кнопку «Play» и
+  проследите за движением пакетов ARP, ICMP, STP и CDP. Исследуйте
+  структуру пакета CDP, опишите структуру кадра Ethernet. Какой тип
+  имеет кадр Ethernet? Опишите структуру MAC-адресов.
+\end{enumerate}
+
+Модель простой сети с маршрутизатором(\textbf{?@fig-007}).\\
+Сценарий с протоколом STP (\textbf{?@fig-008}).
+
+\chapter{Выводы}\label{ux432ux44bux432ux43eux434ux44b}
+
+Вывод: В ходе выполнения лабораторной работы мы научились устанавливать
+инструмент моделирования конфигурации сети Cisco Packet Tracer без
+учётной записи и познакомились с его интерфейсом.
+
+\chapter{Ответы на контрольные
+вопросы:}\label{ux43eux442ux432ux435ux442ux44b-ux43dux430-ux43aux43eux43dux442ux440ux43eux43bux44cux43dux44bux435-ux432ux43eux43fux440ux43eux441ux44b}
+
+1 Дайте определение следующим понятиям: концентратор, коммутатор,
+маршрутизатор, шлюз (gateway). В каких случаях следует использовать тот
+или иной тип сетевого оборудования? Концентратор (Hub): концентратор
+является устройством, которое принимает данные с одного устройства сети
+и передает их всем остальным устройствам в сети. Он работает на
+физическом уровне модели OSI (Open Systems Interconnection), просто
+усиливая сигнал и передавая его по всем портам. Концентратор не имеет
+интеллекта для анализа данных или управления трафиком. Обычно
+используется в небольших сетях или для расширения количества портов в
+сети. Коммутатор (Switch): коммутатор также работает на канальном уровне
+OSI и способен анализировать адреса MAC (Media Access Control)
+устройств, подключенных к нему. В отличие от концентратора, коммутатор
+передает данные только тому устройству, для которого они предназначены,
+что делает его более эффективным по сравнению с концентратором.
+
+\printbibliography[heading=none]
+
+
+
+
+
+\end{document}
